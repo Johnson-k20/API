@@ -1,12 +1,13 @@
 (function () {
+  const USERS_URL =
+    "https://charity-minds-backend.onrender.com/api/v1/users";
+
   const REGISTER_URL =
     "https://charity-minds-backend.onrender.com/api/v1/auth/register";
 
-  function buildRequestOptions(method = "GET", body) {
+  function buildRequestOptions(method = "GET", body = null) {
     const options = {
       method,
-      mode: "cors",
-      credentials: "omit",
       headers: {
         Accept: "application/json",
       },
@@ -25,24 +26,42 @@
     AppState.clearError();
 
     try {
-      const response = await fetch(REGISTER_URL, buildRequestOptions("GET"));
+      const response = await fetch(
+        USERS_URL,
+        buildRequestOptions("GET")
+      );
+
+      const payload = await response.json();
 
       if (!response.ok) {
-        const message = await response.text().catch(() => "");
-        throw new Error(message || `Unable to load users (${response.status})`);
+        throw new Error(
+          payload.message ||
+          `Unable to load users (${response.status})`
+        );
       }
 
-      const payload = await response.json().catch(() => null);
       const users = Array.isArray(payload)
         ? payload
-        : payload?.users || payload?.data || payload?.result || [];
+        : payload.users ||
+          payload.data ||
+          payload.result ||
+          [];
 
       AppState.setUsers(users);
+
       return users;
     } catch (error) {
-      AppState.setError(
-        error.message || "The public endpoint is unavailable right now.",
-      );
+      console.error("Fetch error:", error);
+
+      // Prevent authentication messages from appearing
+      if (
+        error.message.includes("You are not authenticated")
+      ) {
+        AppState.clearError();
+      } else {
+        AppState.setError(error.message);
+      }
+
       return [];
     } finally {
       AppState.setLoading(false);
@@ -54,15 +73,16 @@
 
     const response = await fetch(
       REGISTER_URL,
-      buildRequestOptions("POST", userPayload),
+      buildRequestOptions("POST", userPayload)
     );
+
     const payload = await response.json().catch(() => null);
 
     if (!response.ok) {
-      const message =
-        payload?.message || `Registration failed (${response.status})`;
-      console.error("Backend error response:", payload);
-      throw new Error(message);
+      throw new Error(
+        payload?.message ||
+        `Registration failed (${response.status})`
+      );
     }
 
     return payload;
