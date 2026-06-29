@@ -56,6 +56,7 @@ function normalizeUserPayload(formData) {
     dob: formData.dob,
     gender: formData.gender,
     password: formData.password,
+    confirmPassword: formData.confirmPassword,
   };
 }
 

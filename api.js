@@ -1,5 +1,6 @@
 (function () {
-  const API_URL = "https://charity-minds-backend.onrender.com/api/v1/users";
+  const REGISTER_URL =
+    "https://charity-minds-backend.onrender.com/api/v1/auth/register";
 
   function buildRequestOptions(method = "GET", body) {
     const options = {
@@ -24,7 +25,7 @@
     AppState.clearError();
 
     try {
-      const response = await fetch(API_URL, buildRequestOptions("GET"));
+      const response = await fetch(REGISTER_URL, buildRequestOptions("GET"));
 
       if (!response.ok) {
         const message = await response.text().catch(() => "");
@@ -52,15 +53,16 @@
     AppState.clearError();
 
     const response = await fetch(
-      API_URL,
+      REGISTER_URL,
       buildRequestOptions("POST", userPayload),
     );
     const payload = await response.json().catch(() => null);
 
     if (!response.ok) {
-      throw new Error(
-        payload?.message || `Registration failed (${response.status})`,
-      );
+      const message =
+        payload?.message || `Registration failed (${response.status})`;
+      console.error("Backend error response:", payload);
+      throw new Error(message);
     }
 
     return payload;

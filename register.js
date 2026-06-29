@@ -54,12 +54,20 @@
         submitButton.disabled = true;
         return;
       }
+      if (values.password !== values.confirmPassword) {
+        setFieldError("confirmPassword", "Passwords do not match");
+        submitButton.disabled = false;
+        submitButton.textContent = "Register";
+        return;
+      }
 
       submitButton.disabled = true;
       submitButton.textContent = "Registering...";
 
       try {
         const payload = normalizeUserPayload(values);
+        console.log("Payload being sent;", payload);
+
         await window.api.createUser(payload);
         sessionStorage.setItem(
           "registrationSuccess",
@@ -67,7 +75,8 @@
         );
         window.location.href = "index.html";
       } catch (error) {
-        setFieldError("email", error.message || "Registration failed.");
+        console.error(error);
+        setFieldError("general", error.message || "Registration failed.");
         submitButton.disabled = false;
         submitButton.textContent = "Register";
       }
