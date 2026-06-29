@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API User Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">API Data Filtering Dashboard</p>
+            <h1>Users</h1>
+          </div>
+          <a class="button primary" href="register.html">Register New User</a>
+        </div>
+
+        <div class="status-banner hidden" id="errorBanner">
+          <span id="errorText"></span>
+          <button type="button" id="retryButton">Retry</button>
+        </div>
+
+        <p id="statusText" class="status-text hidden"></p>
+
+        <div class="cards">
+          <div class="card">
+            <h3>Total Users</h3>
+            <p id="totalUsers">0</p>
+          </div>
+        </div>
+
+        <div class="filters">
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Search by any field"
+          />
+          <input
+            id="firstNameFilter"
+            type="text"
+            placeholder="Filter by first name"
+          />
+          <input
+            id="lastNameFilter"
+            type="text"
+            placeholder="Filter by last name"
+          />
+          <input
+            id="usernameFilter"
+            type="text"
+            placeholder="Filter by username"
+          />
+          <input id="emailFilter" type="text" placeholder="Filter by email" />
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Gender</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="state.js"></script>
+    <script src="utils.js"></script>
+    <script src="filters.js"></script>
+    <script src="api.js"></script>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

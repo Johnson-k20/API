@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register User</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="form-card">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Create Account</p>
+            <h1>Register New User</h1>
+          </div>
+        </div>
+
+        <form id="registerForm" novalidate>
+          <div class="form-grid">
+            <div class="form-row">
+              <div class="field">
+                <label for="firstName">First name</label>
+                <input id="firstName" name="firstName" type="text" />
+                <span class="error-text" data-error-for="firstName"></span>
+              </div>
+              <div class="field">
+                <label for="lastName">Last name</label>
+                <input id="lastName" name="lastName" type="text" />
+                <span class="error-text" data-error-for="lastName"></span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" />
+                <span class="error-text" data-error-for="username"></span>
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" />
+                <span class="error-text" data-error-for="email"></span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" />
+                <span class="error-text" data-error-for="phone"></span>
+              </div>
+              <div class="field">
+                <label for="dob">Date of birth</label>
+                <input id="dob" name="dob" type="date" />
+                <span class="error-text" data-error-for="dob"></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender">
+                <option value="">Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+              <span class="error-text" data-error-for="gender"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" />
+                <span class="error-text" data-error-for="password"></span>
+              </div>
+              <div class="field">
+                <label for="confirmPassword">Confirm Password</label>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                />
+                <span
+                  class="error-text"
+                  data-error-for="confirmPassword"
+                ></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <a class="button secondary" href="index.html">Back to Dashboard</a>
+            <button
+              class="button primary"
+              id="submitButton"
+              type="submit"
+              disabled
+            >
+              Register
+            </button>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <script src="state.js"></script>
+    <script src="utils.js"></script>
+    <script src="api.js"></script>
+    <script src="register.js"></script>
+  </body>
+</html>
